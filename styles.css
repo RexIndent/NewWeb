@@ -149,6 +149,37 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 #const circle{transform-box:fill-box;transform-origin:center;animation:twk 2.2s ease-in-out infinite}
 @keyframes twk{50%{transform:scale(1.9)}}
 #soil{position:fixed;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 50% 100%,#6b4527,#241509 70%)}
+/* v4: cloud loader + cloud portal transition */
+#loader{overflow:visible}
+#loader::after{content:'';position:absolute;left:0;right:0;bottom:-11vh;height:24vh;background:radial-gradient(circle at 50% 42%,#fff4ee 0 10vh,transparent 10.3vh) repeat-x;background-size:17vh 24vh;filter:drop-shadow(0 -6px 14px rgba(255,170,200,.5))}
+.lclouds{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.lclouds i{position:absolute;width:60vmax;height:30vmax;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.55),transparent 70%);filter:blur(10px);animation:ldrift 14s ease-in-out infinite}
+.lclouds i:nth-child(1){left:-20%;top:10%}.lclouds i:nth-child(2){left:30%;top:50%;animation-delay:-5s}.lclouds i:nth-child(3){left:60%;top:5%;animation-delay:-9s}.lclouds i:nth-child(4){left:5%;top:68%;animation-delay:-3s}
+@keyframes ldrift{50%{transform:translateX(12vw)}}
+.orb{width:auto;height:auto}
+.ccloud{width:min(70vw,300px);overflow:visible;filter:drop-shadow(0 0 18px rgba(255,200,230,.85));animation:bobc 3s ease-in-out infinite}
+@keyframes bobc{50%{transform:translateY(-8px)}}
+.ccloud .o{fill:rgba(255,255,255,.14);stroke:#fff;stroke-width:3}.ccloud .f{fill:#fff}
+.orb #pct{position:absolute;top:60%;left:50%;transform:translate(-50%,-50%);color:#5a3380;text-shadow:none;z-index:1}
+#cloudfx{position:fixed;inset:0;z-index:72;pointer-events:none;overflow:hidden}
+.cp{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.98),rgba(255,226,240,.85) 45%,rgba(255,200,220,0) 70%);filter:blur(10px);will-change:transform,opacity}
+/* v4.1: living cloud loader that parts left and right; full-screen cloud transition */
+#loader{background:none;border-radius:0;display:block}
+#loader::after{display:none}
+#loader .half{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(#2a1858,#7a3d86 50%,#ff9d7a)}
+#loader .l{left:0}#loader .r{right:0}
+.cw{position:absolute;inset:0;overflow:hidden}
+#loader .half::after{content:'';position:absolute;top:0;bottom:0;width:9vh;background:radial-gradient(circle at 40% 50%,#fff4ee 0 6vh,transparent 6.2vh) repeat-y;background-size:12vh 15vh}
+#loader .l::after{right:-6vh}#loader .r::after{left:-6vh;transform:scaleX(-1)}
+.cl{position:absolute;width:15vmax;height:15vmax;border-radius:50%;background:#fff;opacity:.92;filter:blur(1.5px);box-shadow:9vmax 2vmax 0 -1.5vmax #fff,-8vmax 3vmax 0 -2vmax #fff,3vmax 4vmax 0 1vmax #fff,-3vmax 5vmax 0 .5vmax #fff;animation:cdrift var(--d,26s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes cdrift{from{transform:translateX(-45vmax)}to{transform:translateX(75vmax)}}
+.cl.a{top:8%;--d:30s;--dl:-6s}.cl.b{top:34%;--d:22s;--dl:-14s;scale:.75}.cl.c{top:58%;--d:36s;--dl:-20s;scale:1.2}.cl.d{top:78%;--d:26s;--dl:-3s;scale:.9}
+.lcenter{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:1rem;z-index:3}
+.ltxt{color:#fff;letter-spacing:.2em}
+.cbase{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff,#ffe4f0 70%,#ffd2e6)}
+/* v4.2: realistic sky loader: a canvas of lit, shaded clouds you fly through */
+#loader{background:linear-gradient(#10275c,#2f5aa0 38%,#d79aa6 74%,#ffd6a6)}
+#lcv{position:absolute;inset:0;width:100%;height:100%}
 /* mobile */
 @media (max-width:640px){.arch-stone{width:140px;height:205px}.arch-glow{border-radius:54px 54px 0 0}
 .nav{top:auto;bottom:calc(1rem + env(safe-area-inset-bottom,0px));margin-top:0;width:50px;height:50px;font-size:2rem}
