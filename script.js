@@ -9,8 +9,8 @@ const DATA={
  links:[['Email','mailto:you@example.com','✉'],['Facebook','https://www.facebook.com/','f'],['GitHub','https://github.com/','</>'],['TikTok','https://www.tiktok.com/','♪']],
  quote:'Reach for the sky — the stars were always meant to be connected.',
  /* MUSIC (code only): put your own audio path/URL in each src, e.g. 'audio/front.mp3'. Every track loops again when it finishes. Empty = silent. */
- music:[{id:'front',label:'Front page',src:''},{id:'core',label:'The Core (page end)',src:''},{id:'sections',label:'Archway sections',src:''}],
- musicVolume:.6};
+ music:[{id:'front',label:'Front page',src:'audio/Front.mp3'},{id:'core',label:'The Core (page end)',src:'audio/End.mp3'},{id:'sections',label:'Archway sections',src:'audio/Sections.mp3'}],
+ musicVolume:5.0};
 const ph=(t,h)=>'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h},70%,55%)"/><stop offset="1" stop-color="hsl(${h+60},70%,28%)"/></linearGradient></defs><rect width="400" height="300" fill="url(#g)"/><circle cx="200" cy="125" r="46" fill="rgba(255,255,255,.35)"/><text x="200" y="240" font-size="24" fill="#fff" text-anchor="middle" font-family="sans-serif">${t}</text></svg>`);
 
 /* ===== RENDER CONTENT ===== */
