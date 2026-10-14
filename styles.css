@@ -148,6 +148,7 @@ font:700 .9rem var(--display);letter-spacing:.1em;color:#2a1048;padding:.85rem 1
 body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(5,3,25,.5))}
 #const circle{transform-box:fill-box;transform-origin:center;animation:twk 2.2s ease-in-out infinite}
 @keyframes twk{50%{transform:scale(1.9)}}
+#soil{position:fixed;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 50% 100%,#6b4527,#241509 70%)}
 /* mobile */
 @media (max-width:640px){.arch-stone{width:140px;height:205px}.arch-glow{border-radius:54px 54px 0 0}
 .nav{top:auto;bottom:calc(1rem + env(safe-area-inset-bottom,0px));margin-top:0;width:50px;height:50px;font-size:2rem}
