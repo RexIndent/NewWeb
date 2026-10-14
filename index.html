@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9bfd6"/><stop offset=".5" stop-color="#8f84a3"/><stop offset="1" stop-color="#5d5273"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3e0"/><stop offset=".6" stop-color="#ffd48a"/><stop offset="1" stop-color="#f0a3a0"/></linearGradient>
+</defs></svg>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<div id="loader" role="status" aria-live="polite">
+  <p>Gathering the clouds</p>
+  <div class="track"><div id="bar"></div></div>
+</div>
+
+<main id="home">
+  <h1>Your Name</h1>
+  <p class="sub">Choose an archway to step through.</p>
+  <nav class="arches" aria-label="Portfolio sections">
+    <button class="arch" data-open="intro"><svg viewBox="0 0 120 160" aria-hidden="true"><path d="M8 160V70a52 52 0 01104 0v90z" fill="url(#stone)"/><path d="M30 160V72a30 30 0 0160 0v88z" fill="url(#glow)"/><path d="M8 70a52 52 0 01104 0M20 160V72a40 40 0 0180 0v88" fill="none" stroke="#3d3453" stroke-width="2"/></svg><span>About me</span></button>
+    <button class="arch" data-open="skills"><svg viewBox="0 0 120 160" aria-hidden="true"><path d="M8 160V70a52 52 0 01104 0v90z" fill="url(#stone)"/><path d="M30 160V72a30 30 0 0160 0v88z" fill="url(#glow)"/><path d="M8 70a52 52 0 01104 0M20 160V72a40 40 0 0180 0v88" fill="none" stroke="#3d3453" stroke-width="2"/></svg><span>Skills</span></button>
+    <button class="arch" data-open="values"><svg viewBox="0 0 120 160" aria-hidden="true"><path d="M8 160V70a52 52 0 01104 0v90z" fill="url(#stone)"/><path d="M30 160V72a30 30 0 0160 0v88z" fill="url(#glow)"/><path d="M8 70a52 52 0 01104 0M20 160V72a40 40 0 0180 0v88" fill="none" stroke="#3d3453" stroke-width="2"/></svg><span>Values</span></button>
+    <button class="arch" data-open="interests"><svg viewBox="0 0 120 160" aria-hidden="true"><path d="M8 160V70a52 52 0 01104 0v90z" fill="url(#stone)"/><path d="M30 160V72a30 30 0 0160 0v88z" fill="url(#glow)"/><path d="M8 70a52 52 0 01104 0M20 160V72a40 40 0 0180 0v88" fill="none" stroke="#3d3453" stroke-width="2"/></svg><span>Interests</span></button>
+    <button class="arch" data-open="social"><svg viewBox="0 0 120 160" aria-hidden="true"><path d="M8 160V70a52 52 0 01104 0v90z" fill="url(#stone)"/><path d="M30 160V72a30 30 0 0160 0v88z" fill="url(#glow)"/><path d="M8 70a52 52 0 01104 0M20 160V72a40 40 0 0180 0v88" fill="none" stroke="#3d3453" stroke-width="2"/></svg><span>Find me</span></button>
+  </nav>
+</main>
+
+<button id="close" hidden aria-label="Close section and return to the front page">&times;</button>
+
+<section class="panel" id="intro" hidden aria-label="About me"><div class="content"><div class="wrap">
+  <h2>About me</h2>
+  <div class="card split">
+    <img src="placeholder-author.jpg" alt="Portrait of the author (placeholder)" width="320" height="400">
+    <div>
+      <h3>Your Name</h3>
+      <ul class="facts"><li>Age: 00</li><li>Born: Month 00, 0000</li><li>Hometown: Iligan City, Philippines</li></ul>
+      <p>Write two or three warm sentences here about who you are, what you build, and what pulls you toward the sky.</p>
+    </div>
+  </div>
+</div></div><div class="fin"></div></section>
+
+<section class="panel" id="skills" hidden aria-label="Skills"><div class="content"><div class="wrap">
+  <h2>Skills</h2>
+  <article class="card split"><img src="placeholder-skill-1.jpg" alt="Skill 1 photo (placeholder)" width="320" height="220"><div><h3>Skill one</h3><p>Describe how you use it and what you have made with it.</p></div></article>
+  <article class="card split"><img src="placeholder-skill-2.jpg" alt="Skill 2 photo (placeholder)" width="320" height="220"><div><h3>Skill two</h3><p>Describe how you use it and what you have made with it.</p></div></article>
+  <article class="card split"><img src="placeholder-skill-3.jpg" alt="Skill 3 photo (placeholder)" width="320" height="220"><div><h3>Skill three</h3><p>Describe how you use it and what you have made with it.</p></div></article>
+  <article class="card split"><img src="placeholder-skill-4.jpg" alt="Skill 4 photo (placeholder)" width="320" height="220"><div><h3>Skill four</h3><p>Describe how you use it and what you have made with it.</p></div></article>
+  <article class="card split"><img src="placeholder-skill-5.jpg" alt="Skill 5 photo (placeholder)" width="320" height="220"><div><h3>Skill five</h3><p>Describe how you use it and what you have made with it.</p></div></article>
+</div></div><div class="fin"></div></section>
+
+<section class="panel" id="values" hidden aria-label="Values"><div class="content"><div class="wrap">
+  <h2>Values</h2>
+  <article class="card"><h3>Value one</h3><p>Say what it means to you and how it shapes your work.</p></article>
+  <article class="card"><h3>Value two</h3><p>Say what it means to you and how it shapes your work.</p></article>
+  <article class="card"><h3>Value three</h3><p>Say what it means to you and how it shapes your work.</p></article>
+</div></div><div class="fin"></div></section>
+
+<section class="panel" id="interests" hidden aria-label="Personal interests"><div class="content"><div class="wrap">
+  <h2>Interests</h2>
+  <article class="card split"><img src="placeholder-interest-1.jpg" alt="Interest 1 photo (placeholder)" width="320" height="220"><div><h3>Interest one</h3><p>A personal note about why you love it.</p></div></article>
+  <article class="card split"><img src="placeholder-interest-2.jpg" alt="Interest 2 photo (placeholder)" width="320" height="220"><div><h3>Interest two</h3><p>A personal note about why you love it.</p></div></article>
+  <article class="card split"><img src="placeholder-interest-3.jpg" alt="Interest 3 photo (placeholder)" width="320" height="220"><div><h3>Interest three</h3><p>A personal note about why you love it.</p></div></article>
+</div></div><div class="fin"></div></section>
+
+<section class="panel" id="social" hidden aria-label="Social links"><div class="content"><div class="wrap">
+  <h2>Find me</h2>
+  <div class="card links">
+    <a class="chip" href="mailto:you@example.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/></svg>Email</a>
+    <a class="chip" href="https://facebook.com/your-handle" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 8V6.5c0-.7.2-1 1-1h2V2h-3a4 4 0 00-4 4v2H7v3.5h3V22h4V11.5h3L17.5 8z"/></svg>Facebook</a>
+    <a class="chip" href="https://github.com/your-handle" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 015 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.8v2.7c0 .3.2.6.7.5A10 10 0 0012 2z"/></svg>GitHub</a>
+    <a class="chip" href="https://tiktok.com/@your-handle" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 3h-3v12.2a2.8 2.8 0 11-2.8-2.8V9.3a6 6 0 106 6V9a7 7 0 004 1.3V7.1A4 4 0 0116 3z"/></svg>TikTok</a>
+  </div>
+</div></div><div class="fin"></div></section>
+
+<p id="cp"></p>
+<div id="bf" aria-hidden="true"><svg viewBox="0 0 48 48"><g class="w l"><path d="M24 24C10 3 0 9 4 22c2 9 11 9 20 2z" fill="url(#glow)"/></g><g class="w r"><path d="M24 24C38 3 48 9 44 22c-2 9-11 9-20 2z" fill="url(#glow)"/></g><rect x="22.5" y="14" width="3" height="20" rx="1.5" fill="#fff3e0"/></svg></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
