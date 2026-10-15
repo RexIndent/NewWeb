@@ -210,3 +210,29 @@ body{transition:color .8s}.card,.about-front .about,.pc,.soc a,#theme{transition
 .nav{top:auto;bottom:calc(1rem + env(safe-area-inset-bottom,0px));margin-top:0;width:50px;height:50px;font-size:2rem}
 #back{font-size:.72rem;padding:.7rem 1.1rem}#portal{padding:calc(5.5rem + env(safe-area-inset-top,0px)) .9rem 6rem}
 .hero{padding:1.2rem}.strip p{font-size:clamp(1.5rem,7vw,2.4rem)}.soc a{padding:.6rem 1rem}}
+
+/* v11: Return to Horizon — oblong button turns black, stars sparkle, then a white dwarf with orbiting planets swells to fill the button and slowly shrinks */
+#back{overflow:hidden;isolation:isolate;transition:background .5s,color .5s,box-shadow .5s}
+#back .bt{position:relative;z-index:4}
+#back .bs,#back .dw{position:absolute;pointer-events:none}
+#back .bs{width:3px;height:3px;border-radius:50%;background:var(--c);box-shadow:0 0 5px 1px var(--c),0 0 14px 3px var(--c);opacity:0;transform:scale(0);z-index:1}
+#back .bs::before,#back .bs::after{content:'';position:absolute;background:linear-gradient(90deg,transparent,var(--c),transparent)}
+#back .bs::before{left:-7px;right:-7px;top:1px;height:1px}
+#back .bs::after{top:-7px;bottom:-7px;left:1px;width:1px;background:linear-gradient(0deg,transparent,var(--c),transparent)}
+#back .dw{left:50%;top:50%;width:140px;height:140px;margin:-70px 0 0 -70px;border-radius:50%;z-index:2;opacity:0;scale:.05;background:radial-gradient(circle closest-side,#fff 0 12%,#eef5ff 16%,rgba(200,225,255,.7) 26%,rgba(170,205,255,.25) 44%,rgba(150,190,255,0) 70%)}
+#back .or{position:absolute;inset:0;border-radius:50%;animation:orbit var(--t) linear infinite}
+#back .or::before{content:'';position:absolute;left:50%;top:50%;width:calc(var(--rad)*2);height:calc(var(--rad)*2);margin:calc(var(--rad)*-1) 0 0 calc(var(--rad)*-1);border-radius:50%;border:1px solid rgba(210,230,255,.28)}
+#back .or b{position:absolute;left:50%;top:calc(50% - var(--rad));width:var(--w);height:var(--w);margin:calc(var(--w)/-2) 0 0 calc(var(--w)/-2);border-radius:50%;background:var(--c);box-shadow:0 0 7px var(--c)}
+#back .o1{--rad:21px;--t:5s;--w:5px;--c:#9fd8ff}
+#back .o2{--rad:29px;--t:8s;--w:4px;--c:#ffd08a;animation-direction:reverse}
+#back .o3{--rad:38px;--t:12s;--w:6px;--c:#ff9ec7}
+#back:hover,#back:focus-visible{background:#000;color:#fff2c9;box-shadow:0 0 36px rgba(255,170,120,.55),0 0 0 1px rgba(255,255,255,.3)}
+#back:hover .bt,#back:focus-visible .bt{text-shadow:0 0 3px #301050,0 0 3px #301050,0 0 9px #301050}
+#back:hover .bs,#back:focus-visible .bs{animation:twinkle var(--p) ease-in-out var(--d) infinite}
+#back:hover .dw,#back:focus-visible .dw{animation:dwin 11s cubic-bezier(.45,.05,.3,1) 1.4s both}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(var(--s)) rotate(45deg)}}
+@keyframes dwin{0%{opacity:0;scale:.05}12%{opacity:1}45%{opacity:1;scale:4.2}55%{opacity:1;scale:4.2}100%{opacity:1;scale:.7}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes vpulse{50%{box-shadow:0 0 22px var(--gold)}}
+#vol.need{animation:vpulse 1.2s ease-in-out infinite}
+.copy{padding:0 1rem;text-indent:.08em}
