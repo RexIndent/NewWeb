@@ -6,11 +6,11 @@ if(!window.THREE||!window.gsap){const l=document.getElementById('loader');l&&l.r
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)],clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
 /* ===== CONTENT: edit this object only ===== */
 const DATA={
- me:{name:'Your Name',age:'21',dob:'January 1, 2005',town:'Your Hometown',bio:'I build immersive, playful web experiences where design, motion and code meet. Replace this blurb with your own story.'},
- skills:[{t:'Front-End',i:['HTML5','CSS3','JavaScript']},{t:'Creative Coding',i:['Three.js','WebGL','GSAP']},{t:'UI/UX Design',i:['Figma','Prototyping','Type']},{t:'Back-End',i:['Node.js','REST','SQL']},{t:'Craft & Tools',i:['Git','Testing','Performance']}],
+ me:{photo:'images/author.jpg',name:'John Zhaski A. Lai',age:'18',dob:'October 5, 2008',town:'Purok 8, Tambacan',bio:'A boy with a passion to explore the world, blessed with a imagination so vivid... it almost felt real... He calls it a curse. Others say it is a blessing. He has hobbies so technical yet he is a jack of all trades but a master of none.'},
+ skills:[{t:'Front-End',img:'',i:['HTML5','CSS3','JavaScript']},{t:'Creative Coding',img:'',i:['Three.js','WebGL','GSAP']},{t:'UI/UX Design',img:'',i:['Figma','Prototyping','Type']},{t:'Back-End',img:'',i:['Node.js','REST','SQL']},{t:'Craft & Tools',img:'',i:['Git','Testing','Performance']}],
  values:[{t:'Curiosity',p:'Every good thing starts with asking what happens if.'},{t:'Craft',p:'Small details are where people feel the care.'},{t:'Kindness',p:'Great work is built with and for people.'}],
- interests:[{t:'Cozy Games',p:'Flying through glowing skies with friends.'},{t:'Stargazing',p:'Finding patterns in the dark.'},{t:'Photography',p:'Collecting golden-hour light.'}],
- links:[['Email','mailto:you@example.com','✉'],['Facebook','https://www.facebook.com/','f'],['GitHub','https://github.com/','</>'],['TikTok','https://www.tiktok.com/','♪']],
+ interests:[{t:'Cozy Games',img:'',p:'Flying through glowing skies with friends.'},{t:'Stargazing',img:'',p:'Finding patterns in the dark.'},{t:'Photography',img:'',p:'Collecting golden-hour light.'}],
+ links:[['Email','mailto:you@example.com','✉'],['Facebook','https://www.facebook.com/','f'],['GitHub','https://github.com/','<>'],['TikTok','https://www.tiktok.com/','♪']],
  quote:'Reach for the sky — the stars were always meant to be connected.',
  /* MUSIC (code only): put your own audio path/URL in each src, e.g. 'audio/front.mp3'. Every track loops again when it finishes. Empty = silent. */
  music:[{id:'front',label:'Front page',src:'audio/Front.mp3'},{id:'core',label:'The Core (page end)',src:'audio/End.mp3'},{id:'sections',label:'Archway sections',src:'audio/Sections.mp3'}],
@@ -19,11 +19,11 @@ const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'
 const ph=(t,h)=>'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h},70%,55%)"/><stop offset="1" stop-color="hsl(${h+60},70%,28%)"/></linearGradient></defs><rect width="400" height="300" fill="url(#g)"/><circle cx="200" cy="125" r="46" fill="rgba(255,255,255,.35)"/><text x="200" y="240" font-size="24" fill="#fff" text-anchor="middle" font-family="sans-serif">${esc(t)}</text></svg>`);
 
 /* ===== RENDER CONTENT ===== */
-const M=DATA.me;$('#name').textContent=M.name;$('#bio').textContent=M.bio;$('#author').src=ph('Author Photo',260);
+const M=DATA.me;$('#name').textContent=M.name;$('#bio').textContent=M.bio;$('#author').src=M.photo||ph('Author Photo',260);
 $('#facts').innerHTML=[['Name',M.name],['Age',M.age],['Born',M.dob],['Hometown',M.town]].map(([a,b])=>`<dt>${a}</dt><dd class="mag">${b}</dd>`).join('');
-$('#skills-grid').innerHTML=DATA.skills.map((s,i)=>`<article class="card"><div class="skill-photo-placeholder" data-placeholder="Skill Photo" data-magnify style="background-image:url('${ph(s.t,i*55)}')"></div><h3 class="mag">${s.t}</h3><ul class="tags">${s.i.map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('');
+$('#skills-grid').innerHTML=DATA.skills.map((s,i)=>`<article class="card"><div class="skill-photo-placeholder" data-placeholder="Skill Photo" data-magnify style="background-image:url('${s.img||ph(s.t,i*55)}')"></div><h3 class="mag">${s.t}</h3><ul class="tags">${s.i.map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('');
 $('#values-grid').innerHTML=DATA.values.map(v=>`<article class="card"><h3 class="mag">${v.t}</h3><p class="mag">${v.p}</p></article>`).join('');
-$('#interests-grid').innerHTML=DATA.interests.map((v,i)=>`<article class="card"><div class="interest-photo-placeholder" data-placeholder="Interest Photo" data-magnify style="background-image:url('${ph(v.t,200+i*50)}')"></div><h3 class="mag">${v.t}</h3><p class="mag">${v.p}</p></article>`).join('');
+$('#interests-grid').innerHTML=DATA.interests.map((v,i)=>`<article class="card"><div class="interest-photo-placeholder" data-placeholder="Interest Photo" data-magnify style="background-image:url('${v.img||ph(v.t,200+i*50)}')"></div><h3 class="mag">${v.t}</h3><p class="mag">${v.p}</p></article>`).join('');
 $('#soc').innerHTML=DATA.links.map(l=>`<li><a href="${l[1]}" target="_blank" rel="noopener"><i>${l[2]}</i>${l[0]}</a></li>`).join('');
 $('#copy').textContent=`© 2026 ${M.name}. All rights reserved.`;
 /* About Me lives on the front page, between the hero and the archways */
@@ -32,8 +32,8 @@ $('#gate').before($('#about'));
 const ARCH=[['skills','Skills','Where code, pixels and a little magic hold hands.'],['values','Values','The compass behind every late night and every launch.'],['interests','Interests','The things that fill my cup when the screen goes dark.'],['connect','Connect','Send a signal. I would love to hear what you are dreaming up!']];
 $('.portals').innerHTML=ARCH.map(a=>`<button class="archway-portal" data-id="${a[0]}"><span class="arch-stone"><i class="key"></i><span class="arch-glow"><b class="ray"></b><i class="rune">✦ ◇ ✦</i></span><i class="pil l"></i><i class="pil r"></i><i class="base"></i></span><span class="cm"><h3 class="mag">${a[1]}</h3><p class="mag">${a[2]}</p></span></button>`).join('');
 /* 4 projects at the bottom of every archway section */
-const PROJ=[['Aurora Landing','A WebGL landing page that follows your cursor like a firefly.'],['Starlight Journal','A calm notes app that turns your entries into constellations.'],['Skyward Shop','A speedy, friendly storefront with buttery page transitions.'],['Lantern Chat','A tiny real-time chat that glows when someone is typing.']];
-$$('.sec').forEach(s=>s.insertAdjacentHTML('beforeend',`<div class="proj"><h3 class="mag">Projects</h3><div class="track">${PROJ.map((p,i)=>`<figure class="pc"><div class="pph" data-placeholder="Project Photo" style="background-image:url('${ph(p[0],i*70+20)}')"></div><figcaption><b>${p[0]}</b><span>${p[1]}</span></figcaption></figure>`).join('')}</div></div>`));
+const PROJ=[['Aurora Landing','A WebGL landing page that follows your cursor like a firefly.',''],['Starlight Journal','A calm notes app that turns your entries into constellations.',''],['Skyward Shop','A speedy, friendly storefront with buttery page transitions.',''],['Lantern Chat','A tiny real-time chat that glows when someone is typing.','']];
+$$('.sec').forEach(s=>s.insertAdjacentHTML('beforeend',`<div class="proj"><h3 class="mag">Projects</h3><div class="track">${PROJ.map((p,i)=>`<figure class="pc"><div class="pph" data-placeholder="Project Photo" style="background-image:url('${p[2]||ph(p[0],i*70+20)}')"></div><figcaption><b>${p[0]}</b><span>${p[1]}</span></figcaption></figure>`).join('')}</div></div>`));
 function split(el){[...el.childNodes].forEach(n=>{if(n.nodeType===3){const f=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(w=>{if(!w.trim()){f.append(w);return}const s=document.createElement('span');s.className='w';[...w].forEach(c=>{const l=document.createElement('span');l.className='ch';l.textContent=c;s.append(l)});f.append(s)});n.replaceWith(f)}else if(n.nodeType===1)split(n)})}
 $$('.mag').forEach(split);
 
@@ -813,3 +813,5 @@ if(location.hash==='#meteor'||location.hash==='#core'){window.__skipLoad=true;ld
  const wv=document.createElement('div');wv.style.cssText='position:fixed;inset:0;z-index:999;background:#fff;pointer-events:none';document.body.append(wv);
  gsap.to(wv,{opacity:0,duration:1.8,delay:.3,ease:'power2.out',onComplete:()=>wv.remove()});setTimeout(()=>{if(window.__MET)window.__MET.on=true},1200)}
 })();
+/* a11y: hide decorative layers from screen readers */
+document.querySelectorAll('#bf,#cloudfx,#dream,#soil,#const').forEach(e=>e.setAttribute('aria-hidden','true'));

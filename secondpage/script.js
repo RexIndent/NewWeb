@@ -238,3 +238,6 @@ requestAnimationFrame(loop);
 const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 })();
+/* a11y: hide decorative bits; skip the intro for reduced-motion users */
+document.querySelectorAll('.card i,#bf,#neb').forEach(e=>e.setAttribute('aria-hidden','true'));
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){const s=document.getElementById('skip');s&&s.click()}

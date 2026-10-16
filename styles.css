@@ -258,3 +258,10 @@ body{transition:color .8s}.card,.about-front .about,.pc,.soc a,#theme{transition
 /* v14: the loader shows only the caption; the cloud progress orb and percentage are hidden (the script still updates them harmlessly) */
 #loader .orb{display:none}
 #loader .lcenter::before{height:26vh}
+
+/* ===== mobile + accessibility pass ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,a,.archway-portal,.nav,#theme,#volbtn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+:is(#theme,#volbtn,#volr,.nav,.soc a,#back,.archway-portal):focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+@media (pointer:coarse){#volbtn{width:44px;height:44px}#vol{height:48px}#volr{min-height:44px}.soc a{min-height:48px}.tags li{font-size:.85rem;padding:.3rem .75rem}#back{min-height:44px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
