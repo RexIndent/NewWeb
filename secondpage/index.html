@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Libra — the scales among the stars. A page of Horizon.">
+<meta name="theme-color" content="#0d0720">
+<title>Libra — Horizon</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%E2%99%8E%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<noscript><p style="position:relative;z-index:200;padding:2rem">This page needs JavaScript to run.</p></noscript>
+<canvas id="sp"></canvas><div id="neb"></div>
+
+<div id="intro"><canvas id="ic"></canvas><button id="skip">Skip ✦</button></div>
+
+<div id="bf" aria-hidden="true"><svg viewBox="-32 -32 64 64"><defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe9ff"/><stop offset="1" stop-color="#ff7eb6"/></linearGradient></defs>
+<g class="w"><path class="p" d="M0 0C-8-22-30-24-26-6C-24 4-10 6 0 2Z"/><path class="p" d="M0 2C-6 8-22 20-14 26C-8 28-2 14 0 2Z"/></g>
+<g class="w" style="animation-name:flap"><path class="p" d="M0 0C8-22 30-24 26-6C24 4 10 6 0 2Z"/><path class="p" d="M0 2C6 8 22 20 14 26C8 28 2 14 0 2Z"/></g>
+<path d="M0-8V16" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+
+<a id="back" href="../index.html#core">✦ Return to Horizon ✦</a>
+<button id="theme" aria-label="Toggle light or dark mode">☾</button>
+
+<main>
+  <header class="hero">
+    <span>Portfolio · Libra</span>
+    <h1 class="mag">Libra</h1>
+    <p class="mag">The scales among the stars, weighing every light in perfect balance.</p>
+    <div class="hint">Scroll to meet the scales</div>
+  </header>
+
+  <section class="sec rv" id="sign">
+    <h2 class="mag">The Sign of the Scales</h2>
+    <canvas class="three tall" id="gc" aria-label="3D golden Libra symbol that turns slowly. Drag it sideways to spin it faster."></canvas>
+    <p class="note">✦ Drag to spin faster ✦</p>
+  </section>
+
+  <section class="sec rv" id="info">
+    <h2 class="mag">Being a Libra</h2>
+    <div class="stage"><div class="rig" id="rig">
+      <div class="col l">
+        <div class="card"><i>⚖</i><h3>Symbol</h3><p>The Scales</p></div>
+        <div class="card"><i>♀</i><h3>Ruling Planet</h3><p>Venus</p></div>
+        <div class="card"><i>✦</i><h3>Birth Date</h3><p>October 5</p></div>
+      </div>
+      <div class="mid">
+        <canvas class="three" id="sc" aria-label="3D scales in the center, weighing a gem against a star until they balance."></canvas>
+        <p class="note" id="state">Weighing…</p>
+      </div>
+      <div class="col r">
+        <div class="card"><i>☯</i><h3>Respects</h3><p>Balance and fairness</p></div>
+        <div class="card"><i>∞</i><h3>Bonds</h3><p>Partner and cooperation</p></div>
+        <div class="card"><i>❀</i><h3>Manner</h3><p>Diplomacy and harmony</p></div>
+      </div>
+      <div class="card m"><i>◎</i><h3>Mind</h3><p>Weighing perspectives and seeking equilibrium</p></div>
+    </div></div>
+  </section>
+</main>
+<footer class="copy">♎ Horizon · 2026</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -476,6 +476,37 @@ function initSky(){
   const des=vP.pos.clone().addScaledVector(f,-19);des.y+=6.5;if(vSnap){VC.position.copy(des);vSnap=0}else VC.position.lerp(des,1-Math.exp(-5*dt));
   VC.lookAt(vP.pos.clone().addScaledVector(f,28));VC.aspect=innerWidth/innerHeight;VC.fov=62+(vP.spd-38)*.22;VC.updateProjectionMatrix()}
  const w1=[backGrp,...skyIsl,grassB,flowersB,land,grass,...streaks,...trees,...walkers,leafMesh,...mist,...flyers,...clouds,...mush,fireflies,moon,...mtn,...banks,...fogs,...fogS,...sideC,flowers,pth];let under=false; /* the surface world is hidden once the camera is underground */
+ /* ===== METEOR LANDING (arriving from the Libra page): a shooting star falls onto the mountains and bursts into debris ===== */
+ const MET=window.__MET={on:false,t:0,hit:false,ht:0,sh:0,hist:[]},metG=new THREE.Group();S.add(metG);
+ const mSp=(map,col,sc,op,add)=>{const m=new THREE.Sprite(new THREE.SpriteMaterial({map,color:col,transparent:true,opacity:op,depthWrite:false,blending:add===false?THREE.NormalBlending:THREE.AdditiveBlending,fog:false}));m.scale.set(sc,sc,1);m.visible=false;metG.add(m);return m};
+ const mHead=mSp(tex,0xffffff,30,1),mGlow=mSp(tex,0x9fe6ff,100,.8),mTrail=[...Array(34)].map(()=>mSp(tex,0xbfeaff,20,.6)),mFlash=mSp(tex,0xfff1c8,10,1),mEmber=mSp(tex,0xff9a50,60,.8);
+ const mA=new THREE.Vector3(-330,215,-270),mT=new THREE.Vector3(62,66,-342),mV=new THREE.Vector3();
+ const mRing=new THREE.Mesh(new THREE.RingGeometry(1,1.14,56),new THREE.MeshBasicMaterial({color:0xffe2b0,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));mRing.visible=false;metG.add(mRing);
+ const NS=260,sPos=new Float32Array(NS*3),sVel=[...Array(NS)].map(()=>new THREE.Vector3()),sGeo=new THREE.BufferGeometry();sGeo.setAttribute('position',new THREE.BufferAttribute(sPos,3));
+ const mSparks=new THREE.Points(sGeo,new THREE.PointsMaterial({map:tex,color:0xffc070,size:9,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));mSparks.frustumCulled=false;mSparks.visible=false;metG.add(mSparks);
+ const rockM=[0x2c1f2a,0x4a3a3c,0x6a5650].map(c=>new THREE.MeshBasicMaterial({color:c,fog:false,transparent:true})),rocks=[...Array(46)].map((_,i)=>{const m=new THREE.Mesh(new THREE.DodecahedronGeometry(1,0),rockM[i%3]);m.visible=false;m.userData={v:new THREE.Vector3(),r:new THREE.Vector3(),s:1};metG.add(m);return m});
+ const smoke=[...Array(12)].map(()=>mSp(ctex,0x4a3a42,40,.0,false));
+ function metBoom(){MET.hit=true;MET.ht=0;MET.sh=1;mHead.visible=mGlow.visible=false;mTrail.forEach(m=>m.visible=false);
+  mFlash.position.copy(mT);mFlash.visible=true;mEmber.position.copy(mT);mEmber.visible=true;mRing.position.copy(mT);mRing.visible=true;mRing.lookAt(C.position);
+  for(let i=0;i<NS;i++){sPos[i*3]=mT.x;sPos[i*3+1]=mT.y;sPos[i*3+2]=mT.z;const a=Math.random()*6.283,s=20+Math.random()*95;sVel[i].set(Math.cos(a)*s,20+Math.random()*120,(Math.random()-.4)*50)}
+  mSparks.visible=true;
+  rocks.forEach(r=>{r.position.copy(mT);const k=2+Math.random()*5;r.scale.set(k,k*(.6+Math.random()*.6),k);r.visible=true;r.material.opacity=1;const a=Math.random()*6.283,s=15+Math.random()*60;r.userData.v.set(Math.cos(a)*s,25+Math.random()*85,(Math.random()-.4)*40);r.userData.r.set(Math.random()*4,Math.random()*4,Math.random()*4)});
+  smoke.forEach((m,i)=>{m.position.set(mT.x+(Math.random()-.5)*40,mT.y+Math.random()*10,mT.z+2);m.userData={g:20+Math.random()*30,d:Math.random()*.5,s0:30+Math.random()*20};m.visible=true})}
+ function metFrame(t,dt){if(!MET.on)return;MET.t+=dt;const T=MET.t;
+  if(!MET.hit){const u=Math.min(1,T/2.3),e=Math.pow(u,1.7);mV.copy(mA).lerp(mT,e);mV.y+=Math.sin(e*Math.PI)*22;
+   mHead.position.copy(mV);mGlow.position.copy(mV);mHead.visible=mGlow.visible=true;mGlow.scale.setScalar(90+14*Math.sin(T*30));
+   MET.hist.push(mV.clone());if(MET.hist.length>120)MET.hist.shift();
+   mTrail.forEach((m,i)=>{const p=MET.hist[Math.max(0,MET.hist.length-1-i*3)];if(!p)return;m.position.copy(p);m.visible=true;const f=i/mTrail.length;m.scale.setScalar(26*(1-f*.8));m.material.opacity=.75*Math.pow(1-f,1.4)});
+   if(u>=1)metBoom();return}
+  const h=MET.ht+=dt;MET.sh=Math.max(0,1-h/1.1);
+  C.position.x+=(Math.random()-.5)*3.2*MET.sh;C.position.y+=(Math.random()-.5)*2.4*MET.sh;
+  const fu=Math.min(1,h/1);mFlash.scale.setScalar(20+420*Math.sqrt(fu));mFlash.material.opacity=1-fu;
+  const ru=Math.min(1,h/.9);mRing.scale.setScalar(10+190*Math.sqrt(ru));mRing.material.opacity=.9*(1-ru);if(ru>=1)mRing.visible=false;
+  mEmber.material.opacity=Math.max(0,.9-(h-.5)/6)*(.8+.2*Math.sin(h*18));mEmber.scale.setScalar(50+30*Math.sin(h*7));
+  for(let i=0;i<NS;i++){const v=sVel[i];v.y-=70*dt;sPos[i*3]+=v.x*dt;sPos[i*3+1]+=v.y*dt;sPos[i*3+2]+=v.z*dt}sGeo.attributes.position.needsUpdate=true;mSparks.material.opacity=Math.max(0,1-(h-2.2)/2);
+  rocks.forEach(r=>{const u=r.userData;u.v.y-=75*dt;r.position.addScaledVector(u.v,dt);r.rotation.x+=u.r.x*dt;r.rotation.y+=u.r.y*dt;r.material.opacity=Math.max(0,1-(h-3)/1.6)});
+  smoke.forEach(m=>{const d=m.userData,q=Math.max(0,h-d.d);m.position.y+=d.g*dt*.5;m.scale.setScalar(d.s0+q*55);m.material.opacity=Math.min(.55,q*1.2)*Math.max(0,1-q/5)});
+  if(h>7){MET.on=false;metG.visible=false}}
  /* DREAM REALM: floating crystal islands, aurora ribbons and orbs high above the horizon; revealed when the camera pans up */
  const dream=new THREE.Group();dream.visible=false;S.add(dream);const isl=[];
  for(let i=0;i<10;i++){const g2=new THREE.Group(),m=new THREE.MeshLambertMaterial({color:0x8866ff,flatShading:true}),top=new THREE.Mesh(new THREE.IcosahedronGeometry(5+Math.random()*5,0),m),bot=new THREE.Mesh(new THREE.ConeGeometry(4,10,6),m);top.scale.y=.45;bot.rotation.x=Math.PI;bot.position.y=-6;g2.add(top,bot);g2.position.set((Math.random()-.5)*190,125+Math.random()*90,-50-Math.random()*150);g2.userData={ph:Math.random()*6,y:g2.position.y};dream.add(g2);isl.push(g2)}
@@ -508,7 +539,7 @@ function initSky(){
   /* random close fly-bys: a light child swoops past near the camera every 6-15s */
   if(t>nextPass){const f=flyers[Math.random()*flyers.length|0],u=f.userData;if(!u.near){u.near=true;u.sp0=u.sp;u.z0=f.position.z;u.sp=48;u.yn=4+Math.random()*10;f.scale.setScalar(4.5);f.position.z=16+Math.random()*6;f.position.x=-u.dir*240}nextPass=t+6+Math.random()*9}
   flyers.forEach(f=>{const u=f.userData;f.position.x+=u.dir*u.sp*dt;if(Math.abs(f.position.x)>260){f.position.x=-u.dir*260;if(u.near){u.near=false;u.sp=u.sp0;f.scale.setScalar(2);f.position.z=u.z0}}f.position.y=(u.near?u.yn:u.y)+Math.sin(t*1.2+u.ph)*2;const s=Math.sin(t*6+u.ph)*.7;u.L.rotation.z=s;u.Rw.rotation.z=-s;if(f.cape){f.cape.rotation.x=-1.3+Math.sin(t*2.2+u.ph)*.16;if(!under)flutter(f.cape,t,2.4,u.ph)}});
-  C.position.set(Math.sin(t*.12)*4+(mx/innerWidth-.5)*6+CAM.x,6+CAM.p*.12+Math.sin(t*.2)-(my/innerHeight-.5)*2-dsc(spS)*(1-NT.v)*430,30-spS*22);C.lookAt(CAM.x*.7,12+CAM.p-dsc(spS)*(1-NT.v)*430,-100);dome.position.copy(C.position);stars.position.copy(C.position);au.forEach(m=>{m.mesh.visible=NT.v>.02;m.mesh.position.set(C.position.x,C.position.y+250,C.position.z)});moon.position.copy(C.position).add(moonDir);rpFrame(t);voidFrame(t,dt);R.render(VD.on?VS:S,VD.on?VC:C);requestAnimationFrame(loop)})();
+  C.position.set(Math.sin(t*.12)*4+(mx/innerWidth-.5)*6+CAM.x,6+CAM.p*.12+Math.sin(t*.2)-(my/innerHeight-.5)*2-dsc(spS)*(1-NT.v)*430,30-spS*22);C.lookAt(CAM.x*.7,12+CAM.p-dsc(spS)*(1-NT.v)*430,-100);dome.position.copy(C.position);stars.position.copy(C.position);au.forEach(m=>{m.mesh.visible=NT.v>.02;m.mesh.position.set(C.position.x,C.position.y+250,C.position.z)});moon.position.copy(C.position).add(moonDir);rpFrame(t);voidFrame(t,dt);metFrame(t,dt);R.render(VD.on?VS:S,VD.on?VC:C);requestAnimationFrame(loop)})();
 }
 try{initSky()}catch(e){document.body.style.background='linear-gradient(#1b1040,#ff9a6b)'}
 
@@ -522,11 +553,24 @@ const cn=pts.map(p=>mk($('#const'),'circle',{cx:p[0],cy:p[1],r:.55,opacity:0}));
 const G=$('#grand'),gx=G.getContext('2d'),GN=44,GP=[...Array(GN)].map((_,i)=>{const y=1-2*i/(GN-1),r=Math.sqrt(1-y*y),a=i*2.4;return[Math.cos(a)*r,y,Math.sin(a)*r]}),GE=[];
 GP.forEach((p,i)=>GP.forEach((o,j)=>{if(j>i&&Math.hypot(p[0]-o[0],p[1]-o[1],p[2]-o[2])<.62)GE.push([i,j])}));
 const gr2=()=>{G.width=innerWidth;G.height=innerHeight};gr2();addEventListener('resize',gr2);
-(function gLoop(t){if(+G.style.opacity>.01){const w=G.width,h=G.height,R=Math.min(w,h)*.4,a=t*.0006,co=Math.cos(a),si=Math.sin(a),ct=Math.cos(.4),st=Math.sin(.4);gx.clearRect(0,0,w,h);
+let gH=0,gHt=0,gZ=1; /* gZ = zoom into the core when it is pressed */ /* hover glow: 0 = calm, 1 = lit up */
+(function gLoop(t){if(+G.style.opacity>.01){gH+=(gHt-gH)*.12;const w=G.width,h=G.height,R=Math.min(w,h)*.4*gZ,a=t*.0006,co=Math.cos(a),si=Math.sin(a),ct=Math.cos(.4),st=Math.sin(.4);gx.clearRect(0,0,w,h);if(gH>.01){const gr=gx.createRadialGradient(w/2,h/2,0,w/2,h/2,R*1.7);gr.addColorStop(0,`rgba(255,226,170,${.3*gH})`);gr.addColorStop(.6,`rgba(160,235,255,${.1*gH})`);gr.addColorStop(1,'rgba(255,226,170,0)');gx.fillStyle=gr;gx.fillRect(0,0,w,h)}
  const pj=GP.map(([x,y,z])=>{const X=x*co+z*si,Z=-x*si+z*co,Y=y*ct-Z*st,Z2=y*st+Z*ct,k=1/(2.6-Z2);return[w/2+X*R*k*2.2,h/2+Y*R*k*2.2,k]});
- gx.lineWidth=1;gx.strokeStyle='rgba(255,230,180,.5)';GE.forEach(([i,j])=>{gx.beginPath();gx.moveTo(pj[i][0],pj[i][1]);gx.lineTo(pj[j][0],pj[j][1]);gx.stroke()});
- pj.forEach((p,i)=>{gx.fillStyle='#fff6d6';gx.shadowColor='#ffd88a';gx.shadowBlur=14;gx.beginPath();gx.arc(p[0],p[1],5.8*p[2]*(1+.4*Math.sin(t*.006+i*2.1)),0,6.283);gx.fill()});gx.shadowBlur=0}
+ gx.lineWidth=(1+1.8*gH)*(1+(gZ-1)*.12);gx.strokeStyle=`rgba(255,${230+25*gH|0},${180+75*gH|0},${.5+.5*gH})`;gx.shadowColor='#bff3ff';gx.shadowBlur=14*gH;GE.forEach(([i,j])=>{gx.beginPath();gx.moveTo(pj[i][0],pj[i][1]);gx.lineTo(pj[j][0],pj[j][1]);gx.stroke()});
+ pj.forEach((p,i)=>{gx.fillStyle=gH>.02?`rgb(255,${246+9*gH|0},${214+41*gH|0})`:'#fff6d6';gx.shadowColor=gH>.5?'#9ff0ff':'#ffd88a';gx.shadowBlur=14+34*gH;gx.beginPath();gx.arc(p[0],p[1],5.8*p[2]*(1+.4*Math.sin(t*.006+i*(2.1+1.5*gH)))*(1+.55*gH)*(1+(gZ-1)*.35),0,6.283);gx.fill()});gx.shadowBlur=0}
  requestAnimationFrame(gLoop)})(0);
+/* THE CORE IS A DOORWAY: press the final constellation to travel to secondpage/ */
+{const gh=document.createElement('div');gh.textContent='✦ Touch the core ✦';gh.style.cssText='position:absolute;left:0;right:0;bottom:calc(3.6rem + env(safe-area-inset-bottom,0px));text-align:center;font:700 .85rem "Cinzel Decorative",serif;letter-spacing:.2em;color:#ffe2a8;text-shadow:0 0 12px #ffd88a;opacity:0;pointer-events:none;transition:opacity .6s';$('#stage').append(gh);
+ G.tabIndex=0;G.setAttribute('role','link');G.setAttribute('aria-label','Enter the core: open the Libra page');let going=0;
+ const hit=e=>{const r=G.getBoundingClientRect();return Math.hypot(e.clientX-r.left-r.width/2,e.clientY-r.top-r.height/2)<Math.min(r.width,r.height)*.42};
+ const go=()=>{if(going)return;going=1;document.body.classList.add('lock');gHt=1;
+  const f=document.createElement('div');f.style.cssText='position:fixed;inset:0;z-index:999;opacity:0;pointer-events:none;background:#000';document.body.append(f);
+  const ZO={z:1};gsap.timeline().to(ZO,{z:95,duration:2.8,ease:'power3.in',onUpdate:()=>{gZ=ZO.z}}).to(f,{opacity:1,duration:1,ease:'power1.in'},'-=.9').add(()=>{location.href='secondpage/index.html'})};
+ addEventListener('pageshow',e=>{if(e.persisted)location.reload()});
+ if(matchMedia('(pointer:fine)').matches)G.style.cursor='none'; /* keep the butterfly as the only cursor, like the rest of the page */
+ G.addEventListener('mousemove',e=>{const h=hit(e);gHt=h?1:0});G.addEventListener('mouseleave',()=>gHt=0);G.addEventListener('focus',()=>gHt=1);G.addEventListener('blur',()=>gHt=0);
+ G.addEventListener('click',e=>{if(hit(e))go()});G.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
+ (function gl(){const on=+G.style.opacity>.5;G.style.pointerEvents=on?'auto':'none';gh.style.opacity=on&&!going?1:0;requestAnimationFrame(gl)})()}
 
 
 
@@ -760,8 +804,12 @@ function lloop0(now){const dt=Math.min(.05,(now-lt0)/1000||0);lt0=now;const W=lc
  lg.globalAlpha=1;if(!pd)drawP(zp,now,af);{const ef=(x0,y0,x1,y1)=>{const g=lg.createLinearGradient(x0,y0,x1,y1);const fq=Math.min(1,Math.max(0,(zp-1)/5));g.addColorStop(0,'rgba(238,226,242,'+.92*fq+')');g.addColorStop(.55,'rgba(238,226,242,'+.45*fq+')');g.addColorStop(1,'rgba(238,226,242,0)');lg.fillStyle=g;lg.fillRect(0,0,W,H)};ef(0,0,W*.26,0);ef(W,0,W*.74,0);ef(0,H,0,H*.78)} /* cloud banks hugging both sides and the floor */if(L.fl>0){lg.fillStyle='rgba(255,248,240,'+L.fl+')';lg.fillRect(0,0,W,H)}
  }
 requestAnimationFrame(lloop);
-{const o={p:0};gsap.to(o,{p:100,duration:4.5,ease:'power1.inOut',onUpdate:()=>{$('#pct').textContent=Math.round(o.p)+'%';$('#cfr').setAttribute('y',130-1.3*o.p);L.p=o.p/100;L.sp=2.2+L.p*1.4},onComplete:()=>
+{const o={p:0};gsap.to(o,{p:100,duration:4.5,ease:'power1.inOut',onUpdate:()=>{$('#pct').textContent=Math.round(o.p)+'%';$('#cfr').setAttribute('y',130-1.3*o.p);L.p=o.p/100;L.sp=2.2+L.p*1.4},onComplete:()=>window.__skipLoad?0:
  /* loading is done: hold a beat, then one continuous move: a slow drift toward the portal that accelerates into a fast dive through it, whiting out into the site */
  gsap.timeline().to('.lcenter',{y:40,opacity:0,duration:.7,ease:'power2.in'},.5).to(L,{e:1,duration:5.4,ease:'power3.in',onUpdate:()=>{L.sp=3.6+26*L.e*L.e*L.e}},1.3).to(loader,{opacity:0,duration:.9,ease:'power1.inOut'}).from('.hero>*',{y:50,opacity:0,stagger:.15,duration:1,ease:'power3.out'},'-=.6').add(()=>{ldead=true;loader.remove()})})}
 onScroll();
+/* COMING BACK FROM THE LIBRA PAGE (#meteor): white flash clears, a shooting star falls onto the mountains */
+if(location.hash==='#meteor'||location.hash==='#core'){window.__skipLoad=true;ldead=true;loader.style.display='none';document.body.classList.remove('lock');history.replaceState(null,'',location.pathname+location.search);scrollTo(0,0);
+ const wv=document.createElement('div');wv.style.cssText='position:fixed;inset:0;z-index:999;background:#fff;pointer-events:none';document.body.append(wv);
+ gsap.to(wv,{opacity:0,duration:1.8,delay:.3,ease:'power2.out',onComplete:()=>wv.remove()});setTimeout(()=>{if(window.__MET)window.__MET.on=true},1200)}
 })();
