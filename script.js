@@ -7,8 +7,8 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelecto
 /* ===== CONTENT: edit this object only ===== */
 const DATA={
  me:{photo:'images/author.jpg',name:'John Zhaski A. Lai',age:'18',dob:'October 5, 2008',town:'Purok 8, Tambacan',bio:'A boy with a passion to explore the world, blessed with a imagination so vivid... it almost felt real... He calls it a curse. Others say it is a blessing. He has hobbies so technical yet he is a jack of all trades but a master of none.'},
- skills:[{t:'Front-End',img:'',i:['HTML5','CSS3','JavaScript']},{t:'Creative Coding',img:'',i:['Three.js','WebGL','GSAP']},{t:'UI/UX Design',img:'',i:['Figma','Prototyping','Type']},{t:'Back-End',img:'',i:['Node.js','REST','SQL']},{t:'Craft & Tools',img:'',i:['Git','Testing','Performance']}],
- values:[{t:'Curiosity',p:'Every good thing starts with asking what happens if.'},{t:'Craft',p:'Small details are where people feel the care.'},{t:'Kindness',p:'Great work is built with and for people.'}],
+ skills:[{t:'Artist',img:'',i:['Illustrations','Expressionism','Sketches']},{t:'Photographer',img:'',i:['Message','Angles','Composition']},{t:'Calligrapher',img:'',i:['Aesthetics','Artistic style','Eye-catching']},{t:'Writer',img:'',i:['Stories','Journals','Fantasy']},{t:'Musician',img:'',i:['Violin','Soothing','Performance']}],
+ values:[{t:'Curiosity',p:'Curiosity kills the cat... But it has 8 lives to go all that.'},{t:'Persistence',p:"Even with limited choices a person hath... A traveller wont stop from It's path"},{t:'Giving',p:'A poet who gives his words and yearned. still believes it can be returned.'}],
  interests:[{t:'Cozy Games',img:'',p:'Flying through glowing skies with friends.'},{t:'Stargazing',img:'',p:'Finding patterns in the dark.'},{t:'Photography',img:'',p:'Collecting golden-hour light.'}],
  links:[['Email','mailto:you@example.com','✉'],['Facebook','https://www.facebook.com/','f'],['GitHub','https://github.com/','<>'],['TikTok','https://www.tiktok.com/','♪']],
  quote:'Reach for the sky — the stars were always meant to be connected.',
