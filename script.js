@@ -7,10 +7,10 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelecto
 /* ===== CONTENT: edit this object only ===== */
 const DATA={
  me:{photo:'images/author.jpg',name:'John Zhaski A. Lai',age:'18',dob:'October 5, 2008',town:'Purok 8, Tambacan',bio:'A boy with a passion to explore the world, blessed with a imagination so vivid... it almost felt real... He calls it a curse. Others say it is a blessing. He has hobbies so technical yet he is a jack of all trades but a master of none.'},
- skills:[{t:'Artist',img:'',i:['Illustrations','Expressionism','Sketches']},{t:'Photographer',img:'',i:['Message','Angles','Composition']},{t:'Calligrapher',img:'',i:['Aesthetics','Artistic style','Eye-catching']},{t:'Writer',img:'',i:['Stories','Journals','Fantasy']},{t:'Musician',img:'',i:['Violin','Soothing','Performance']}],
+ skills:[{t:'Artist',img:'images/Artist.jpg',i:['Illustrations','Expressionism','Sketches']},{t:'Photographer',img:'images/Photographer.jpg',i:['Message','Angles','Composition']},{t:'Calligrapher',img:'images/Calligrapher.jpg',i:['Aesthetics','Artistic style','Eye-catching']},{t:'Writer',img:'images/Writer.jpg',i:['Stories','Journals','Fantasy']},{t:'Musician',img:'images/Musician.jpg',i:['Violin','Soothing','Performance']}],
  values:[{t:'Curiosity',p:'Curiosity kills the cat... But it has 8 lives to go all that.'},{t:'Persistence',p:"Even with limited choices a person hath... A traveller wont stop from It's path"},{t:'Giving',p:'A poet who gives his words and yearned. still believes it can be returned.'}],
- interests:[{t:'Cozy Games',img:'',p:'Flying through glowing skies with friends.'},{t:'Stargazing',img:'',p:'Finding patterns in the dark.'},{t:'Photography',img:'',p:'Collecting golden-hour light.'}],
- links:[['Email','mailto:you@example.com','✉'],['Facebook','https://www.facebook.com/','f'],['GitHub','https://github.com/','<>'],['TikTok','https://www.tiktok.com/','♪']],
+ interests:[{t:'Cozy Games',img:'',p:'Flying through glowing skies with friends.'},{t:'Music',img:'',p:'Through the melodies of life.'},{t:'Photography',img:'',p:'Collecting golden-hour light.'}],
+ links:[['Email','mailto:zhaskijohnlai@gmail.com','✉'],['Facebook','https://www.facebook.com/zhaski.lai','f'],['GitHub','https://github.com/RexIndent','<>'],['TikTok','https://www.tiktok.com/@yougotfinmat','♪']],
  quote:'Reach for the sky — the stars were always meant to be connected.',
  /* MUSIC (code only): put your own audio path/URL in each src, e.g. 'audio/front.mp3'. Every track loops again when it finishes. Empty = silent. */
  music:[{id:'front',label:'Front page',src:'audio/Front.mp3'},{id:'core',label:'The Core (page end)',src:'audio/End.mp3'},{id:'sections',label:'Archway sections',src:'audio/Sections.mp3'}],
@@ -32,7 +32,11 @@ $('#gate').before($('#about'));
 const ARCH=[['skills','Skills','Where code, pixels and a little magic hold hands.'],['values','Values','The compass behind every late night and every launch.'],['interests','Interests','The things that fill my cup when the screen goes dark.'],['connect','Connect','Send a signal. I would love to hear what you are dreaming up!']];
 $('.portals').innerHTML=ARCH.map(a=>`<button class="archway-portal" data-id="${a[0]}"><span class="arch-stone"><i class="key"></i><span class="arch-glow"><b class="ray"></b><i class="rune">✦ ◇ ✦</i></span><i class="pil l"></i><i class="pil r"></i><i class="base"></i></span><span class="cm"><h3 class="mag">${a[1]}</h3><p class="mag">${a[2]}</p></span></button>`).join('');
 /* 4 projects at the bottom of every archway section */
-const PROJ=[['Aurora Landing','A WebGL landing page that follows your cursor like a firefly.',''],['Starlight Journal','A calm notes app that turns your entries into constellations.',''],['Skyward Shop','A speedy, friendly storefront with buttery page transitions.',''],['Lantern Chat','A tiny real-time chat that glows when someone is typing.','']];
+const PROJ=[
+  ['3D Modeling of Miku','A 3D modeling project featuring the beloved vocaloid character.','images/miku.jpg'],
+  ['Starlight Journal','A calm notes app that turns your entries into constellations.','images/journal.jpg'],
+  ['Skyward Shop','A speedy, friendly storefront with buttery page transitions.','images/shop.jpg'],
+  ['Lantern Chat','A tiny real-time chat that glows when someone is typing.','images/chat.jpg']];
 $$('.sec').forEach(s=>s.insertAdjacentHTML('beforeend',`<div class="proj"><h3 class="mag">Projects</h3><div class="track">${PROJ.map((p,i)=>`<figure class="pc"><div class="pph" data-placeholder="Project Photo" style="background-image:url('${p[2]||ph(p[0],i*70+20)}')"></div><figcaption><b>${p[0]}</b><span>${p[1]}</span></figcaption></figure>`).join('')}</div></div>`));
 function split(el){[...el.childNodes].forEach(n=>{if(n.nodeType===3){const f=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(w=>{if(!w.trim()){f.append(w);return}const s=document.createElement('span');s.className='w';[...w].forEach(c=>{const l=document.createElement('span');l.className='ch';l.textContent=c;s.append(l)});f.append(s)});n.replaceWith(f)}else if(n.nodeType===1)split(n)})}
 $$('.mag').forEach(split);
